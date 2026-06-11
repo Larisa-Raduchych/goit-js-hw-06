@@ -1,25 +1,37 @@
-const profile = {
-  username: 'Jacob',
-  playTime: 300,
+class StringBuilder {
+  #value;
 
-  changeUsername(newName) {
-    this.username = newName;
-  },
+  constructor(initialValue) {
+    this.#value = initialValue;
+  }
 
-  updatePlayTime(hours) {
-    this.playTime += hours;
-  },
+  getValue() {
+    return this.#value;
+  }
 
-  getInfo() {
-    const amount = this.playTime;
-    return `${this.username} has ${amount} active hours!`;
-  },
-};
+  padEnd(str) {
+    this.#value = `${this.#value}${str}`;
+  }
 
-console.log(profile.getInfo()); // "Jacob has 300 active hours!"
+  padStart(str) {
+    this.#value = `${str}${this.#value}`;
+  }
 
-profile.changeUsername('Marco');
-console.log(profile.getInfo()); // "Marco has 300 active hours!"
+  padBoth(str) {
+    this.#value = `${str}${this.#value}${str}`;
+  }
+}
 
-profile.updatePlayTime(20);
-console.log(profile.getInfo()); // "Marco has 320 active hours!"
+// getValue() — повертає поточне значення приватної властивості value.
+// padEnd(str) — отримує параметр str(рядок) і додає його в кінець значення приватної властивості value об'єкта, який викликає цей метод.
+// padStart(str) — отримує параметр str (рядок) і додає його на початок значення приватної властивості value об'єкта, який викликає цей метод.
+// padBoth(str) — отримує параметр str (рядок) і додає його на початок і в кінець значення приватної властивості value об'єкта, який викликає цей метод.
+
+const builder = new StringBuilder('.');
+console.log(builder.getValue()); // "."
+builder.padStart('^');
+console.log(builder.getValue()); // "^."
+builder.padEnd('^');
+console.log(builder.getValue()); // "^.^"
+builder.padBoth('=');
+console.log(builder.getValue()); // "=^.^="
